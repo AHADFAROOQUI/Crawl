@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#check for / at the end of each URL and THEN add it to links.txt
+
+
 field="1"
 pagecount="0"
 #[ ! -d Crawl ] && mkdir Crawl
@@ -17,6 +20,7 @@ else
 fi
 while read links
 do
+    clear
     if wget -O index.html $links
     then
     sleep 3
@@ -43,13 +47,22 @@ do
         field=$((field+1))
     done
     clear
+    linkcount=$(wc -l links.txt | cut -d " " -f 1)
     pagecount=$((pagecount+1))
     echo "You have crawled $pagecount page(s)"
+    echo "and you have extracted $linkcount link(s).."
     echo "Check your links.txt file to access extracted URLs"
     echo "CTRL+C to kill the program"
     sleep 3
     else
-        echo "Invalid Link"
+        line2=$(head -2 links.txt | tail -1)
+	if [ -z $line2 ]
+	then
+	clear
+        echo "The starting link you have provided is not valid.."
+	echo "Please try a new URL."
+	sleep 3
         exit
+	fi
     fi
 done < ./links.txt
