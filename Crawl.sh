@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#check to see if link is already in file
-#check for / at the end of each URL and THEN add it to links.txt
+#send all photo links to a seperate directory
 
 
 pagecount="0"
