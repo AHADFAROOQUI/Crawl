@@ -1,9 +1,9 @@
 #!/bin/bash
 
+#check to see if link is already in file
 #check for / at the end of each URL and THEN add it to links.txt
 
 
-field="1"
 pagecount="0"
 #[ ! -d Crawl ] && mkdir Crawl
 #cd ./Crawl
@@ -20,6 +20,7 @@ else
 fi
 while read links
 do
+    field="1"
     clear
     if wget -O index.html $links
     then
@@ -42,7 +43,10 @@ do
         fi
         if [ "${grep1:0:4}" == "http" ]
         then
-            echo "$grep1" >> ./links.txt
+	    if ! grep -Fxq $grep1 ./links.txt
+	    then
+                echo "$grep1" >> ./links.txt
+	    fi
         fi
         field=$((field+1))
     done
