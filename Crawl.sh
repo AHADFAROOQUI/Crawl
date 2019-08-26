@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #send all photo links to a seperate directory
-#Use grep -a to convert binary to text
+#check for all other assets as in css js etc.. and dont add those links to links.txt
 
 pagecount="0"
 #[ ! -d Crawl ] && mkdir Crawl
@@ -28,13 +28,13 @@ do
     rm ./index.html
     while true
     do
-        grep "href=" ./crawlme.txt | cut -d '"' -f $field
-        grep1=$(grep "href=" ./crawlme.txt | cut -d '"' -f $field)
+        grep -a "href=" ./crawlme.txt | cut -d '"' -f $field
+        grep1=$(grep -a "href=" ./crawlme.txt | cut -d '"' -f $field)
         if [ -z "$grep1" ]
         then
             field=$((field+1))
-            grep "href=" ./crawlme.txt | cut -d '"' -f $field
-            grep1=$(grep "href=" ./crawlme.txt | cut -d '"' -f $field)
+            grep -a "href=" ./crawlme.txt | cut -d '"' -f $field
+            grep1=$(grep -a "href=" ./crawlme.txt | cut -d '"' -f $field)
             if [ -z "$grep1" ]
             then
                 break
