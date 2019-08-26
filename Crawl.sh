@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #send all photo links to a seperate directory
-
+#Use grep -a to convert binary to text
 
 pagecount="0"
 #[ ! -d Crawl ] && mkdir Crawl
